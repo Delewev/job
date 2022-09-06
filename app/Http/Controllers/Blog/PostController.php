@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Blog;
 
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
-
 class PostController extends BaseController
 {
     /**
@@ -16,7 +15,7 @@ class PostController extends BaseController
     {
         $items = BlogPost::all();
 
-        return view('blog.post.index', compact('items'));
+        return view('blog.posts.index', compact('items'));
     }
 
     /**
