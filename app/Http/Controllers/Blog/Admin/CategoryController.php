@@ -12,7 +12,7 @@ class CategoryController extends BaseController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
@@ -24,11 +24,15 @@ class CategoryController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $item = new BlogCategory();
+        $categoriesList = BlogCategory::all();
+
+        return view('blog.admin.categories.edit',
+        compact('item', 'categoriesList'));
     }
 
     /**
@@ -37,9 +41,12 @@ class CategoryController extends BaseController
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogCategoryUpdateRequest $request)
     {
-        //
+        $data = $request->input();
+        if(empty($data['slug'])) {
+            $data['slug'] = str_slug($data['title']);
+        }
     }
 
     /**
